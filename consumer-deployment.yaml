@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-consumer
+  namespace: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-consumer
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-consumer
+    spec:
+      containers:
+      - name: consumer
+        image: akshithf51/rabbitmq-consumer:latest
+        imagePullPolicy: Always
+        env:
+        - name: RABBITMQ_USER
+          value: "user"
+        - name: RABBITMQ_PASSWORD
+          value: "QqQNcTYGaeNUpjDS"
+        - name: RABBITMQ_HOST
+          value: "rabbitmq"   # Kubernetes service name
+        - name: RABBITMQ_QUEUE
+          value: "myqueue"
